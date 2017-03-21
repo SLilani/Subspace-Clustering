@@ -463,14 +463,14 @@ def testVerticalProc():
     points = normalisation(pointsV)
 
     C,D,M,A,sete = Proclust (2 ,pointsV,euclidienne , 0.01,100)
-    print "Ensemble des centroides :" , M
-    print "\n"
-    print "Ensemble des dimentions par cluster :" ,D
-    print "\n"
-    print "Affectation des points  0 :" , A[0]
-    print "\n"
-    print "Affectation des points  1 :" , A[1]
-    AffichagesClusters(pd.DataFrame(M), A,pointsV)
+    print("Ensemble des centroides :" , M)
+    print("\n")
+    print("Ensemble des dimentions par cluster :" ,D)
+    print("\n")
+    print("Affectation des points  0 :" , A[0])
+    print("\n")
+    print("Affectation des points  1 :" , A[1])
+    AffichagesClusters(pd.DataFrame(M), A,pointsV))
 
 
 # In[39]:
@@ -482,13 +482,13 @@ def testVerticalCenterProc():
     points = normalisation(pointsV)
 
     C,D,M,A,sete = Proclust (2 ,pointsV,euclidienne , 0.01,100)
-    print "Ensemble des centroides :" , M
-    print "\n"
-    print "Ensemble des dimentions par cluster :" ,D
-    print "\n"
-    print "Affectation des points  0 :" , A[0]
-    print "\n"
-    print "Affectation des points  1 :" , A[1]
+    print("Ensemble des centroides :" , M)
+    print("\n")
+    print("Ensemble des dimentions par cluster :" ,D)
+    print("\n")
+    print("Affectation des points  0 :" , A[0])
+    print("\n")
+    print("Affectation des points  1 :" , A[1])
     AffichagesClusters(pd.DataFrame(M), A,pointsV)
 
 
@@ -503,13 +503,13 @@ def testHorizontalProc():
 
     C,D,M,A,sete = Proclust (2 ,pointsH,euclidienne , 0.01,45)
     AffichagesClusters(pd.DataFrame(M), A,pointsH)
-    print "Ensemble des centroides :" , M
-    print "\n"
-    print "Ensemble des dimentions par cluster :" ,D
-    print "\n"
-    print "Affectation des points  0 :" , A[0]
-    print "\n"
-    print "Affectation des points  1 :" , A[1]
+    print("Ensemble des centroides :" , M)
+    print("\n")
+    print("Ensemble des dimentions par cluster :" ,D)
+    print("\n")
+    print("Affectation des points  0 :" , A[0])
+    print("\n")
+    print("Affectation des points  1 :" , A[1])
 
 
 # In[45]:
@@ -522,13 +522,13 @@ def testHorizontalCenterProc():
 
     C,D,M,A,sete = Proclust (2 ,pointsH,euclidienne , 0.001,60)
     AffichagesClusters(pd.DataFrame(M), A,pointsH)
-    print "Ensemble des centroides :" , M
-    print "\n"
-    print "Ensemble des dimentions par cluster :" ,D
-    print "\n"
-    print "Affectation des points  0 :" , A[0]
-    print "\n"
-    print "Affectation des points  1 :" , A[1]
+    print("Ensemble des centroides :" , M)
+    print("\n")
+    print("Ensemble des dimentions par cluster :" ,D)
+    print("\n")
+    print("Affectation des points  0 :" , A[0])
+    print("\n")
+    print("Affectation des points  1 :" , A[1])
 
 
 # In[15]:
@@ -541,13 +541,13 @@ def testCrosseProc():
 
     C,D,M,A,sete = Proclust (2 ,pointsP,euclidienne , 0.01,45)
     AffichagesClusters(pd.DataFrame(M), A,pointsP)
-    print "Ensemble des centroides :" , M
-    print "\n"
-    print "Ensemble des dimentions par cluster :" ,D
-    print "\n"
-    print "Affectation des points  0 :" , A[0]
-    print "\n"
-    print "Affectation des points  1 :" , A[1]
+    print("Ensemble des centroides :" , M)
+    print("\n")
+    print("Ensemble des dimentions par cluster :" ,D)
+    print("\n")
+    print("Affectation des points  0 :" , A[0])
+    print("\n")
+    print("Affectation des points  1 :" , A[1])
 
 
 
@@ -557,13 +557,13 @@ def simpleTestProc():
     point =  createData(50,0.02)
     C,D,M,A,sete = Proclust (2 ,pd.DataFrame(point),euclidienne , 0.04,100)
     AffichagesClusters(pd.DataFrame(M), A,pd.DataFrame(point))
-    print "Ensemble des centroides :" , M
-    print "\n"
-    print "Ensemble des dimentions par cluster :" ,D
-    print "\n"
-    print "Affectation des points  0 :" , A[0]
-    print "\n"
-    print "Affectation des points  1 :" , A[1]
+    print("Ensemble des centroides :" , M)
+    print("\n")
+    print("Ensemble des dimentions par cluster :" ,D)
+    print("\n")
+    print("Affectation des points  0 :" , A[0])
+    print("\n")
+    print("Affectation des points  1 :" , A[1])
 
 
 
@@ -573,17 +573,17 @@ def testXorProc():
     pointXor = createXOR(25,0.009)
     C,D,M,A,sete = Proclust (4 ,pointXor,euclidienne , 0.001,200)
     AffichagesClusters(pd.DataFrame(M), A,pointXor)
-    print "Ensemble des centroides :" , M
-    print "\n"
-    print "Ensemble des dimentions par cluster :" ,D
-    print "\n"
-    print "Affectation des points  0 :" , A[0]
-    print "\n"
-    print "Affectation des points  1 :" , A[1]
-    print "\n"
-    print "Affectation des points  2 :" , A[2]
-    print "\n"
-    print "Affectation des points  3 :" , A[3]
+    print("Ensemble des centroides :" , M)
+    print("\n")
+    print("Ensemble des dimentions par cluster :" ,D)
+    print("\n")
+    print("Affectation des points  0 :" , A[0])
+    print("\n")
+    print("Affectation des points  1 :" , A[1])
+    print("\n")
+    print("Affectation des points  2 :" , A[2])
+    print("\n")
+    print("Affectation des points  3 :" , A[3])
 
 
 
@@ -601,15 +601,15 @@ def read_file (chemin) :
 
 def apply_proc(base , parametre) :
     C,D,M,A,sete = Proclust(parametre[0] , base, parametre[1],parametre[2],parametre[3])
-    print "Valeur optimale trouvée : ",sete
-    print "\n"
-    print "Ensemble des centroides : " , M
-    print "\n"
-    print "Ensemble des dimentions par cluster :" ,D
-    print "\n"
+    print("Valeur optimale trouvée : ",sete)
+    print("\n")
+    print("Ensemble des centroides : " , M)
+    print("\n")
+    print("Ensemble des dimentions par cluster :" ,D)
+    print("\n")
     
     for cle in A.keys() :
-        print "Affectation des points , ",cle," :" , A[cle]
-        print "\n"
+        print("Affectation des points , ",cle," :" , A[cle])
+        print("\n")
     AffichagesClusters(pd.DataFrame(M), A,base)            
 
