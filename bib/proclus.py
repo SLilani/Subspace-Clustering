@@ -6,6 +6,7 @@ import math
 import random
 import outils
 import dataplayer as dt
+import matplotlib.pyplot as plt
 
 # Un petit algorithme d initialisation 
 # Prend en argument une base d exemple un entier et une fonction de distence 
@@ -262,5 +263,6 @@ def apply_proc(base , parametre) :
     for cle in A.keys() :
         print "Affectation des points , ",cle," :" , A[cle]
         print "\n"
+    plt.figure()
     dt.affichagesClusters(pd.DataFrame(M), A,base)            
-
+    plt.show()
