@@ -200,9 +200,6 @@ class grid :
                 u = unit(self.dim,self.dNames,i)
                 u.addLH(cell_values[i])
                 self.grille.append(u)
-        res = self.get_clusters([1])
-        #print res
-        #return cell_values,array_bornes,intervalles
     
     # Fonction qui marque toutes les cellules dense pour un certaint taux et pour un ensemble de dimensions comme danse 
     def mark_cells(self,dim) :
@@ -256,36 +253,31 @@ class grid :
             points += cells[i].get_points(dim,self.base)
         points = list(set(points))
         df = pd.DataFrame(self.base.iloc[points[0:]])
-        return points, tools.centroide(df)
+        return points
 
     # Fonction qui renvoie l'ensemble des points pour tous les cluster  (a partir de leurs cellules ) pour un ensemble de dimensions donné
     def get_all_clusters_points(self,dim,dict_clusters_id_cells) :
         clusters_points = {}
-        centroides = pd.DataFrame()
         for c,v in dict_clusters_id_cells.items() :
-            clusters_points[c],centroide = self.get_cluster_points(dim,v)
-            centroides = centroides.append(centroide,ignore_index=True)
+            clusters_points[c] = self.get_cluster_points(dim,v)
         dim_name =""
         for d in dim :
             dim_name += str(d)
-        #print("centroides : ",centroides)
-        return clusters_points,dim_name,centroides
+        return clusters_points,dim_name
     
     # Fonction qui renvoie un dictionnaire de dictionnaires, 
     # chaque dictionnaire contient tout les clusters pour un certain ensemble de dimensions
     def get_all_clusters_all_dim(self) :
         dict_all_clust_all_dim = {}
-        dict_all_centroides_all_dim = {}
         for dim in tools.partiesliste([i for i in range(self.dim)],self.dim) :
             # Récupération de tout les clusters pour dim (cellules)
             dict_clusters_id_cells = self.get_clusters(dim)
             # Récupération de tout les clusters pour dim (points)
-            value,name,dict_centroides = self.get_all_clusters_points(dim,dict_clusters_id_cells)
+            value,name = self.get_all_clusters_points(dim,dict_clusters_id_cells)
             dict_all_clust_all_dim[name] = value
-            dict_all_centroides_all_dim[name] = dict_centroides
             #for c,v in dict_all_clust_all_dim.items():
                 #print "dim : ",c," clusters : ",v
-        return dict_all_clust_all_dim,dict_all_centroides_all_dim
+        return dict_all_clust_all_dim
     
     
     
