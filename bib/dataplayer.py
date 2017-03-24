@@ -49,7 +49,6 @@ def affichagesClusters(centroides,dictAffectation,base):
     colonne_Y= M_data2D[0:,1] 
     #Nombre de couluers
     colorNbr = len(dictAffectation)
-    print colorNbr
     #Choix aléatoire des couleurs
     colorNames = list(matplotlib.colors.cnames.keys())
     colors = [i for i in range(len(colorNames))]
@@ -66,11 +65,11 @@ def affichagesClusters(centroides,dictAffectation,base):
     for key,values in dictAffectation.items() :
         for indice in values :
             categories[indice] = int(key)
-    print "ok"
     #categories = categories.astype(int)
     plt.scatter(colonne_X,colonne_Y,s=100,c=colorMap[np.array(categories.values()).astype(int)])
     
     #Affichage des centroides finaux en noir 
+    
     if(len(centroides) > 0 ) :
         M_data2D = centroides.as_matrix()
         colonne_X= M_data2D[0:,0]
@@ -126,7 +125,7 @@ def create_gauss_vertical(nb_points) :
 # Fonction la génération de deux gaussiennes horizentales (elipse)
 # Nombre de points en sortie = 2 * nb_points
 
-def create_gauss_horizental(nb_points) :
+def create_gauss_horizontal(nb_points) :
     positive_points = np.random.multivariate_normal(np.array([0,1]),np.array([[1,0],[0,0.005]]),50)
     negative_points = np.random.multivariate_normal(np.array([0,0]),np.array([[1,0],[0,0.005]]),50)
     points =pd.DataFrame(np.concatenate((positive_points, negative_points), axis=0))
@@ -147,8 +146,8 @@ def create_gauss_vertical_cent(nb_points) :
 # Nombre de points en sortie = 2 * nb_points
 
 def create_gauss_cross(nb_points) :
-    positive_points =  np.random.multivariate_normal(np.array([0,1]),np.array([[1,0],[0,0.005]]),50)
-    negative_points =  np.random.multivariate_normal(np.array([1,0]),np.array([[0.06,0],[0,0.01]]),50)
+    positive_points = np.random.multivariate_normal(np.array([0,1]),np.array([[0,1],[0.08,0]]),50)
+    negative_points = np.random.multivariate_normal(np.array([0,0]),np.array([[1,0],[0,0.08]]),50)
     points =pd.DataFrame(np.concatenate((positive_points, negative_points), axis=0))
     points = normalisation(points)
     return points        
@@ -157,9 +156,9 @@ def create_gauss_cross(nb_points) :
 # etl'autre verticale (elispe), qui s'intersectent 
 # Nombre de points en sortie = 2 * nb_points
 
-def create_gauss_horizental_cent(nb_points) :   
-    positive_points = np.random.multivariate_normal(np.array([0,1]),np.array([[0,1],[0.08,0]]),50)
-    negative_points = np.random.multivariate_normal(np.array([0,0]),np.array([[1,0],[0,0.08]]),50)
+def create_gauss_horizontal_cent(nb_points) :   
+    positive_points =  np.random.multivariate_normal(np.array([0,1]),np.array([[1,0],[0,0.005]]),50)
+    negative_points =  np.random.multivariate_normal(np.array([1,0]),np.array([[0.06,0],[0,0.01]]),50)
     points =pd.DataFrame(np.concatenate((positive_points, negative_points), axis=0))
     points = normalisation(points)   
     return points
