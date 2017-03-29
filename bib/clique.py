@@ -1,20 +1,21 @@
 
 # coding: utf-8
 
-# In[34]:
+# In[5]:
 
 import numpy as np
 import pandas as pd
 from datetime import datetime as dt
 import matplotlib.pyplot as plt
-get_ipython().magic(u'matplotlib inline')
+get_ipython().magic('matplotlib inline')
 import math
 import random
-import dataplayer as dtp
-import outils as tools
+import bib.dataplayer as dtp
+import bib.outils as tools
+import bib.output as o
 
 
-# In[35]:
+# In[6]:
 
 # - - Classe pour représenter une cellule (units)
 class unit :
@@ -154,13 +155,12 @@ class unit :
             
 
 
-# In[36]:
-
-def centroide(df) :
-    return pd.DataFrame(np.mean(df)).T
+# In[7]:
 
 
-# In[37]:
+
+
+# In[8]:
 
 
 
@@ -275,9 +275,7 @@ class grid :
             # Récupération de tout les clusters pour dim (points)
             value,name = self.get_all_clusters_points(dim,dict_clusters_id_cells)
             dict_all_clust_all_dim[name] = value
-            #for c,v in dict_all_clust_all_dim.items():
-                #print "dim : ",c," clusters : ",v
-        return dict_all_clust_all_dim
+        return o.output([dict_all_clust_all_dim],"clique")
     
     
     
@@ -296,7 +294,7 @@ class grid :
             cell.display()
 
 
-# In[38]:
+# In[9]:
 
 # - - Classe pour Clique
 class clique :
@@ -314,5 +312,7 @@ class clique :
         
     def run(self) : 
         self.grid.create_grid()
-        return self.grid.get_all_clusters_all_dim()
+        output_clique = self.grid.get_all_clusters_all_dim()
+        output_clique.construct_clusters()
+        return output_clique
 

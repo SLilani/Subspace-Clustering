@@ -1,13 +1,14 @@
 
 # coding: utf-8
+
+# In[1]:
+
 import numpy as np
 import pandas as pd
 import math
 import random
-import outils
-import dataplayer as dt
-import matplotlib.pyplot as plt
-
+import bib.outils as outils
+import bib.output as o
 # Un petit algorithme d initialisation 
 # Prend en argument une base d exemple un entier et une fonction de distence 
 # Retourn un ensemble de points de taille egale au nombre passe en parametre
@@ -47,16 +48,12 @@ def Greedy(base , nclust ,fdist):
         m.append(list(mi))
         for k in range(len(mat)) :
             if  outils.notIN(list(mat[k]) , m) :
-                dicoidDist[k] = min([dicoidDist[k], fdist(pd.DataFrame(mat[k]),pd.DataFrame(mi))])
-            
+                dicoidDist[k] = min([dicoidDist[k], fdist(pd.DataFrame(mat[k]),pd.DataFrame(mi))])         
     return m
-
-
 
 
 # Cette Fonction permet de trouver pour
 # chaque cluster la dimmenssion ou l'attribut le plus pertinant
-
 
 def find_dimensions(L,dim,Mcurrent):
     x = {}
@@ -142,8 +139,7 @@ def evaluate_cluster(Clust,dim, Mcurrent) :
 
 
 
-
-# Algorithme du Proclus
+# Algorithe du Proclus
 
 def Proclust (nclust ,base,fdist , seuil, iterMax ):
     
@@ -155,7 +151,7 @@ def Proclust (nclust ,base,fdist , seuil, iterMax ):
     Affect = {}
     D = {}                       # Affection des dimmenssios aux clusters
     C = {}                       # Affection des exemples aux centroides 
-    Mcurrent = []                # Ensembles des centroides a l iteration courantes 
+    Mcurrent = []                # Ensembles des centroides a l iteration courentes 
     AffectBest = {}				 # Dictionnaire d affectation a la convergence 
     dimBest = {}				 # Affectation des dimention pour chaque cluster a la convergence
     niter = 0
@@ -176,7 +172,7 @@ def Proclust (nclust ,base,fdist , seuil, iterMax ):
         #######################################################################################     
       
     while BestObjectiv > seuil and niter < iterMax  :
-        # Pour chaque centre calculer la dustence au centre le plus proche
+        # Pour chaque centre calculer la distence au centre le plus proche
         #######################################################################################
         for mi in Mcurrent : 
             mini = 900000000
@@ -246,23 +242,7 @@ def Proclust (nclust ,base,fdist , seuil, iterMax ):
                 exemple.append(x[1])
                 if not  outils.notIN(list(val) ,[list(exemple)]) :
                     Affect[cle].append(j)    
-    return AffectBest,dimBest,Mbest,Affect, BestObjectiv
-    
-    
-# Fonction permettant d appliquer le proclus sur un  jeux de donnees
+    output_proclus = o.output([Affect,Mbest,dimBest,BestObjectiv],"proclus") 
+    output_proclus.construct_clusters()
+    return output_proclus  
 
-def apply_proc(base , parametre) :
-    C,D,M,A,sete = Proclust(parametre[0] , base, parametre[1],parametre[2],parametre[3])
-    print "Valeur optimale trouvée : ",sete
-    print "\n"
-    print "Ensemble des centroides : " , M
-    print "\n"
-    print "Ensemble des dimentions par cluster :" ,D
-    print "\n"
-    
-    for cle in A.keys() :
-        print "Affectation des points , ",cle," :" , A[cle]
-        print "\n"
-    plt.figure()
-    dt.affichagesClusters(pd.DataFrame(M), A,base)            
-    plt.show()
