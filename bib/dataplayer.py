@@ -5,8 +5,6 @@
 
 import pandas as pd
 import numpy as np
-import math
-import random
 import matplotlib.pyplot as plt
 
 
@@ -38,40 +36,34 @@ import colorsys
 def affichagesClusters(centroides,dictAffectation,base):
     ind_points = []
     for cle,val in dictAffectation.items() :
-        ind_points += val
-    #if(len(ind_points) < len(base)) :
-        #base_real = pd.DataFrame()
-        #base_real = base_real.append(base.iloc[ind_points[0:]])
-        #M_data2D = base_real.as_matrix() 
-    #else : 
+        ind_points += val 
     M_data2D = base.as_matrix() 
     colonne_X= M_data2D[0:,0] 
     colonne_Y= M_data2D[0:,1] 
     #Nombre de couluers
     colorNbr = len(dictAffectation)
     #Choix aléatoire des couleurs
-    colorNames = ['red','blue','darkgreen','deeppink','orangered','orchid',"black"]
+    colorNames = ['red','blue','darkgreen','deeppink','orangered','orchid','orange','green',"black"]
     colors = [i for i in range(len(colorNames))]
     colors =colors[0:colorNbr]   
     colorMap = ["black"] 
+    
     for i in range(colorNbr) :
         colorMap.append(colorNames[colors[i]])
     colorMap = np.array(colorMap)
-
-    #categories = np.zeros(len(base))
-    #categories = np.array(categories)
     categories = {}
+    
     for key,values in dictAffectation.items() :
         for indice in values :
             categories[indice] = int(key)+ 1
-    #categories = categories.astype(int)
+
     a = np.zeros(len(base))
     for i in categories.keys() :
         a[i]= categories[i]
     a = np.array(a)
     
     plt.scatter(colonne_X,colonne_Y,s=100,c=colorMap[a.astype(int)])
-    
+   
     
     if(len(centroides) >0): 
         #Affichage des centroides finaux en noir 
@@ -116,13 +108,13 @@ def create_xor(nb_points,var) :
     G2 = createGaussianDataFrame(np.array([0,0]),np.array([[var,0],[0,var]]),nb_points)
     G3 = createGaussianDataFrame(np.array([0,1]),np.array([[var,0],[0,var]]),nb_points)
     G4 = createGaussianDataFrame(np.array([1,0]),np.array([[var,0],[0,var]]),nb_points)
-    return G1.append(G2.append(G3.append(G4,ignore_index=True),ignore_index=True),ignore_index = True)
+    return normalisation(G1.append(G2.append(G3.append(G4,ignore_index=True),ignore_index=True),ignore_index = True))
 
 
 def create_gauss_ronde(nb_points,var) :
     G1 = createGaussianDataFrame(np.array([1,1]),np.array([[var,0],[0,var]]),nb_points)
     G2 = createGaussianDataFrame(np.array([0,0]),np.array([[var,0],[0,var]]),nb_points)
-    return G1.append(G2, ignore_index = True)
+    return normalisation(G1.append(G2, ignore_index = True))
 
 # Fonction la génération de deux gaussiennes verticales (elipse)
 # Nombre de points en sortie = 2 * nb_points
@@ -131,6 +123,7 @@ def create_gauss_vertical(nb_points) :
     positive_points = np.random.multivariate_normal(np.array([0,0]),np.array([[0,1],[0.005,0]]),50)
     negative_points = np.random.multivariate_normal(np.array([1,0]),np.array([[0,1],[0.005,0]]),50)
     points =pd.DataFrame(np.concatenate((positive_points, negative_points), axis=0))
+    points = normalisation(points)
     return points
     
 # Fonction la génération de deux gaussiennes horizentales (elipse)
@@ -140,6 +133,7 @@ def create_gauss_horizontal(nb_points) :
     positive_points = np.random.multivariate_normal(np.array([0,1]),np.array([[1,0],[0,0.005]]),50)
     negative_points = np.random.multivariate_normal(np.array([0,0]),np.array([[1,0],[0,0.005]]),50)
     points =pd.DataFrame(np.concatenate((positive_points, negative_points), axis=0))
+    points = normalisation(points)
     return points   
     
 # Fonction la génération de deux gaussiennes une verticale (elipse) et l'autre ronde
@@ -149,6 +143,7 @@ def create_gauss_vertical_cent(nb_points) :
     positive_points = np.random.multivariate_normal(np.array([0,0]),np.array([[0,1],[0.005,0]]),50)
     negative_points = np.random.multivariate_normal(np.array([1,0]),np.array([[0.01,0],[0,0.06]]),50)
     points =pd.DataFrame(np.concatenate((positive_points, negative_points), axis=0))
+    points = normalisation(points)
     return points     
     
 # Fonction la génération de deux gaussiennes une horizentale (elipse) et l'autre ronde
@@ -158,6 +153,7 @@ def create_gauss_horizontal_cent(nb_points) :
     positive_points =  np.random.multivariate_normal(np.array([0,1]),np.array([[1,0],[0,0.005]]),50)
     negative_points =  np.random.multivariate_normal(np.array([1,0]),np.array([[0.06,0],[0,0.01]]),50)
     points =pd.DataFrame(np.concatenate((positive_points, negative_points), axis=0))
+    points = normalisation(points)
     return points        
     
 # Fonction la génération de deux gaussiennes une horizentale (elipse) 
@@ -165,8 +161,9 @@ def create_gauss_horizontal_cent(nb_points) :
 # Nombre de points en sortie = 2 * nb_points
 
 def create_gauss_cross(nb_points) :   
-    positive_points = np.random.multivariate_normal(np.array([0,1]),np.array([[0,1],[0.08,0]]),50)
-    negative_points = np.random.multivariate_normal(np.array([0,0]),np.array([[1,0],[0,0.08]]),50)
+    positive_points = np.random.multivariate_normal(np.array([0,1]),np.array([[0,1],[0.008,0]]),50)
+    negative_points = np.random.multivariate_normal(np.array([0,0]),np.array([[1,0],[0,0.008]]),50)
     points =pd.DataFrame(np.concatenate((positive_points, negative_points), axis=0))   
+    points = normalisation(points)
     return points
 

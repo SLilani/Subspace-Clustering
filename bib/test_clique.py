@@ -1,12 +1,13 @@
 
+
 # coding: utf-8
 
 # In[3]:
 
-import bib.dataplayer as dtp
-import bib.clique as clique
-import matplotlib.pyplot as plt
-
+import dataplayer as dtp
+import clique as clique
+import Evaluateur_inertie as ei
+import outils as tools
 
 # In[4]:
 
@@ -16,20 +17,13 @@ import matplotlib.pyplot as plt
 
 def test_clique(base,nb_intervalles,taux) :
     clique_test = clique.clique(base,nb_intervalles,taux)
-    l_affectations = clique_test.run()
-    plt.figure()
-    print("- Les clusters pour la dimension  0 sont : ")
-    dtp.affichagesClusters([],l_affectations['0'],base)
-    plt.show()
-    plt.figure()
-    print("- Les clusters pour la dimension  1 sont : ")
-    dtp.affichagesClusters([],l_affectations['1'],base)
-    plt.show()
-    plt.figure()
-    print("- Les clusters pour la dimension  01 sont : ")
-    dtp.affichagesClusters([],l_affectations['01'],base)
-    plt.show()
-
+    clique_test.run()
+    clique_test.affichage_clique()
+    aff,centro = clique_test.output_for_eval_inertie()
+    e = ei.Evaluateur_inertie(base,aff,centro)
+    e.Evaluate(tools.euclidienne)
+    e.__str__()
+    
 
 # In[5]:
 
@@ -41,7 +35,7 @@ def test_clique(base,nb_intervalles,taux) :
 # In[6]:
 
 ################################################ TEST XOR ################################################################
-nb_points = 100
+nb_points = 10
 var = 0.005
         
 data_test_one = dtp.create_xor(nb_points,var)
@@ -61,7 +55,7 @@ test_clique(data_test_two,3,0.01)
 ######################################### TEST GAUSSIENNES HORIZONTALES PARALLELES #######################################
 nb_points =100     
 data_test_two = dtp.create_gauss_horizontal(nb_points)
-test_clique(data_test_two,3,0.01)
+test_clique(data_test_two,3,0.1)
 
 
 # In[9]:
@@ -69,7 +63,7 @@ test_clique(data_test_two,3,0.01)
 ################################################ TEST GAUSSIENNES HORIZONTALES centre ############################################
 nb_points =100     
 data_test_two = dtp.create_gauss_horizontal_cent(nb_points)
-test_clique(data_test_two,3,0.1)
+test_clique(data_test_two,3,0.01)
 
 
 # In[10]:
@@ -85,5 +79,5 @@ test_clique(data_test_two,3,0.01)
 ################################################ TEST GAUSSIENNES HORIZONTALES centre ############################################
 nb_points =100     
 data_test_two = dtp.create_gauss_cross(nb_points)
-test_clique(data_test_two,4,0.04)
-
+test_clique(data_test_two,10,0.001)
+    
